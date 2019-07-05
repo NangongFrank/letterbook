@@ -1,10 +1,11 @@
 <template>
-	<view>
+	<view class="m">
 		
 	</view>
 </template>
 <script>
 	export default {
+		name: 'Topic',
 		data() {
 			return {
 
@@ -19,5 +20,5 @@
 	}
 </script>
 <style lang="less" scoped>
-	
+	@import "../../static/config.less";
 </style>
