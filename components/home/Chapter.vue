@@ -1,6 +1,6 @@
 <template>
 	<view class="m">
-		
+		我是文章
 	</view>
 </template>
 <script>

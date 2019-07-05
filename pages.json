@@ -14,7 +14,7 @@
 		}
 	],
 	"globalStyle": {
-		"navigationBarBackgroundColor":"black",
+		"navigationBarBackgroundColor":"white",
 		"navigationBarTextStyle":"black"
 	},
 	"condition": {

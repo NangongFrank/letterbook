@@ -1,6 +1,6 @@
 <template>
 	<view class="m">
-		
+		我是赴约
 	</view>
 </template>
 <script>

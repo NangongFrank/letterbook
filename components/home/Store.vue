@@ -1,6 +1,6 @@
 <template>
 	<view class="m">
-		
+		我是门店
 	</view>
 </template>
 <script>

@@ -1,6 +1,6 @@
 <template>
 	<view class="m">
-		
+		我是视频
 	</view>
 </template>
 <script>
