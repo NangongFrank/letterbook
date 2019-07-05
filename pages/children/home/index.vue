@@ -41,7 +41,8 @@
 					</view>
 				</view>
 				<view class="m-info-right">
-					<view class="iconfont icon-add">关注</view>
+					<view class="iconfont icon-add" v-if="true">关注</view>
+					<view class="focused" v-else>已关注</view>
 				</view>
 			</view>
 			<view class="m-banner">
@@ -93,6 +94,10 @@
 				<appointment-element />
 			</view>
 		</view>
+		<view style="height: 100upx; background: #fff;"></view>
+		<view class="f">
+			<view>写信</view>
+		</view>
 	</view>
 </template>
 <script>
@@ -122,11 +127,11 @@
 					}, {
 					name: '赴约',
 				}],
-				nIndex: 0,
+				nIndex: 4,
 			}
 		},
 		onLoad(opitons) {
-
+			
 		},
 		methods: {
 			checkThis(value, index) {
@@ -137,6 +142,29 @@
 </script>
 <style lang="less" scoped>
 	@import "../../../static/config.less";
+	.f {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 750upx;
+		height: 106upx;
+		display: flex;
+		@{ai}: center;
+		@{jc}: center;
+		@{bgc}: #fff;
+		border-top: 2upx solid #ddd;
+		view {
+			@{bgc}: @baseColor;
+			color: #fff;
+			@{fs}:30upx;
+			display: flex;
+			@{ai}: center;
+			@{jc}: center;
+			height: 80upx;
+			width: 690upx;
+			@{bdra}: 40upx;
+		}
+	}
 	.c {
 		@{bgc}: #fff;
 		padding: 0 20upx;
@@ -145,6 +173,9 @@
 		@{bgc}: #fff;
 		padding: 0 20upx;
 		border-bottom: 2upx solid #ddd;
+		width: 710upx;
+		left: 0;
+		top: 0;
 		scroll-view {
 			view {
 				display: inline-block;
@@ -166,6 +197,9 @@
 				}
 			}
 		}
+	}
+	.p-fixed {
+		position: fixed;
 	}
 	.nav {
 		height: 10upx;
@@ -236,18 +270,22 @@
 				view {
 					width: 120upx;
 					height: 44upx;
-					color: #fff;
 					@{fs}: 20upx;
 					@{bdra}: 22upx;
-					@{bgc}: @baseColor;
 					display: flex;
 					@{jc}: center;
 					@{ai}: baseline;
 					line-height: 44upx;
+					@{bgc}: #f2f2f2;
+					color: @c3;
+				}
+				.iconfont {
 					&::before {
 						margin-right: 4upx;
 						@{fs}: 16upx;
 					}
+					color: #fff;
+					@{bgc}: @baseColor;
 				}
 			}
 		}
