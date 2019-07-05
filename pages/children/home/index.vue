@@ -41,7 +41,7 @@
 					</view>
 				</view>
 				<view class="m-info-right">
-					<view class="iconfont icon-add" v-if="true">关注</view>
+					<view class="iconfont icon-add" v-if="!isFocus">关注</view>
 					<view class="focused" v-else>已关注</view>
 				</view>
 			</view>
@@ -128,6 +128,7 @@
 					name: '赴约',
 				}],
 				nIndex: 4,
+				isFocus: false,
 			}
 		},
 		onLoad(opitons) {
