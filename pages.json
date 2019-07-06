@@ -32,9 +32,14 @@
 				"navigationBarTitleText":"邀约"
 			}
 		},{
+			"path":"pages/children/home/children/children/fillAppointmentOrder",
+			"style": {
+				"navigationBarTitleText":"我要赴约"
+			}
+		},{
 			"path":"pages/children/home/children/chapter",
 			"style": {
-				"navigationBarTitleText":"章节"
+				"navigationBarTitleText":"文章"
 			}
 		}
 	],
@@ -59,6 +64,9 @@
 		}, {
 			"path":"pages/children/home/children/appointment",
 			"name":"邀约"
+		}, {
+			"path":"pages/children/home/children/children/fillAppointmentOrder",
+			"name":"我要赴约"
 		}, {
 			"path":"pages/children/home/children/store",
 			"name":"门店"
