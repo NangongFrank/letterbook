@@ -41,6 +41,23 @@
 			"style": {
 				"navigationBarTitleText":"文章"
 			}
+		},{
+			"path":"pages/children/home/children/writeMail",
+			"style": {
+				"navigationBarTitleText":"写信"
+			}
+		},{
+			"path":"pages/children/home/children/myMail",
+			"style": {
+				"navigationBarTitleText":"我的邮箱"
+			}
+		},{
+			"path":"pages/children/home/children/children/mailInfo",
+			"style": {
+				"navigationBarTitleText":"信件详情",
+				"navigationBarBackgroundColor":"#6ebcc8",
+				"navigationBarTextStyle":"white"
+			}
 		}
 	],
 	"globalStyle": {
@@ -70,6 +87,15 @@
 		}, {
 			"path":"pages/children/home/children/store",
 			"name":"门店"
+		}, {
+			"path":"pages/children/home/children/writeMail",
+			"name":"写信"
+		}, {
+			"path":"pages/children/home/children/myMail",
+			"name":"我的信书"
+		}, {
+			"path":"pages/children/home/children/children/mailInfo",
+			"name":"信件详情"
 		}]
 	}
 }

@@ -66,6 +66,15 @@
 				</view>
 			</view>
 		</view>
+		<view class="photo">
+			<view class="photo-tt">相册</view>
+			<scroll-view scroll-x @tap="previewImg($event, index)">
+				<view v-for="(value, index) in photoList"
+				:key="index">
+					<image :src="value.cover" mode="aspectFill"></image>
+				</view>
+			</scroll-view>
+		</view>
 		<view class="nav"></view>
 		<view class="n">
 			<scroll-view scroll-x>
@@ -95,8 +104,9 @@
 			</view>
 		</view>
 		<view style="height: 100upx; background: #fff;"></view>
-		<view class="f">
-			<view>写信</view>
+		<view class="f" @tap="jumpEvent">
+			<view v-if="!isMyself" data-tag="write">写信</view>
+			<view v-else data-tag="read">我的信书</view>
 		</view>
 	</view>
 </template>
@@ -129,6 +139,18 @@
 				}],
 				nIndex: 4,
 				isFocus: false,
+				isMyself: false,
+				photoList: [{
+					cover: '/static/assests/home/chapter/cover01.jpg',
+					}, {
+					cover: '/static/assests/home/chapter/cover02.jpg',
+					}, {
+					cover: '/static/assests/home/chapter/cover03.jpg',
+					}, {
+					cover: '/static/assests/home/chapter/cover02.jpg',
+					}, {
+					cover: '/static/assests/home/chapter/cover01.jpg',
+				}],
 			}
 		},
 		onLoad(opitons) {
@@ -138,11 +160,50 @@
 			checkThis(value, index) {
 				this.nIndex = index
 			},
+			jumpEvent({target}) {
+				let {tag} = target.dataset
+				if(tag == 'write') {
+					uni.navigateTo({
+						url: '/pages/children/home/children/writeMail'
+					})
+				} else if(tag == 'read') {
+					uni.navigateTo({
+						url: '/pages/children/home/children/myMail'
+					})
+				}
+			},
+			previewImg({target}, index) {
+				uni.showToast({
+					title: '暂不支持图片预览',
+					duration: 1000,
+					icon: 'none',
+				})
+			},
 		},
 	}
 </script>
 <style lang="less" scoped>
 	@import "../../../static/config.less";
+	.photo {
+		padding: 0 20upx;
+		@{bgc}: #fff;
+		&-tt {
+			@{fs}: 30upx;
+			padding-bottom: 20upx;
+		}
+		scroll-view {
+			width: 710upx;
+			white-space: nowrap;
+			view {
+				display: inline-block;
+			}
+		}
+		image {
+			width: 230upx;
+			height: 154upx;
+			margin-right: 12upx;
+		}
+	}
 	.f {
 		position: fixed;
 		bottom: 0;
@@ -178,6 +239,8 @@
 		left: 0;
 		top: 0;
 		scroll-view {
+			white-space: nowrap;
+			width: 710upx;
 			view {
 				display: inline-block;
 				padding: 22upx 30upx;
