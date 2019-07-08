@@ -12,7 +12,7 @@
 	export default {
 		data() {
 			return {
-				time: '',
+				time: '12:12:40',
 			}
 		},
 		onLoad(opitons) {
