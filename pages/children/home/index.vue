@@ -1,5 +1,6 @@
 <template>
 	<view class="g">
+		<view style="height: 44upx;" v-if="navStatus"></view>
 		<view class="m">
 			<view class="m-tt">
 				<view class="m-tt-user">
@@ -76,7 +77,7 @@
 			</scroll-view>
 		</view>
 		<view class="nav"></view>
-		<view class="n">
+		<view class="n" :class="{ps: navStatus}">
 			<scroll-view scroll-x>
 				<view v-for="(value, index) in nList"
 				:key="index"
@@ -140,6 +141,7 @@
 				nIndex: 4,
 				isFocus: false,
 				isMyself: false,
+				navStatus: false,
 				photoList: [{
 					cover: '/static/assests/home/chapter/cover01.jpg',
 					}, {
@@ -155,6 +157,13 @@
 		},
 		onLoad(opitons) {
 			
+		},
+		onPageScroll({scrollTop}) {
+			if(scrollTop > 400) {
+				this.navStatus = true
+			} else {
+				this.navStatus = false
+			}
 		},
 		methods: {
 			checkThis(value, index) {
@@ -184,6 +193,9 @@
 </script>
 <style lang="less" scoped>
 	@import "../../../static/config.less";
+	.ps {
+		position: fixed;
+	}
 	.photo {
 		padding: 0 20upx;
 		@{bgc}: #fff;
@@ -238,6 +250,7 @@
 		width: 710upx;
 		left: 0;
 		top: 0;
+		z-index: 100;
 		scroll-view {
 			white-space: nowrap;
 			width: 710upx;

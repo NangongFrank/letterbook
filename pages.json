@@ -1,11 +1,11 @@
 {
 	"pages": [
-		{
+		/* {
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "信书名片"
 			}
-		},
+		}, */
 		{
 			"path":"pages/children/home/index",
 			"style": {
