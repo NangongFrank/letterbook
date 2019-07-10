@@ -13,5 +13,32 @@
 </script>
 
 <style>
-	/*每个页面公共css */
+	* {
+		color: #333;
+	}
+	.add-more {
+		padding: 14upx 20upx;
+		font-size: 32upx;
+		color: #555;
+		display: flex;
+		justify-content: center;
+		background-color: #fff;
+	}
+	.add-more view {
+		position: relative;
+	}
+	.add-more view::before,
+	.add-more view::after {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		content: "-------";
+		color: #999;
+	}
+	.add-more view::before {
+		left: -100upx;
+	}
+	.add-more view::after {
+		right: -100upx;
+	}
 </style>

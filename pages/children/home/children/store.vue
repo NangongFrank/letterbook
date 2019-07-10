@@ -72,11 +72,16 @@
 		</view>
 		<view class="m-tip">
 			<view class="m-tip-tt">品牌故事</view>
-			<view>抗战岁月，一个日本九州大学毕业的农学士中国黑茶理论之父/白沙溪创始人---彭先泽。回到祖国，以实业报国的现实行为，向湖南政府提议在安化建立砖茶厂，这就是白沙溪的前身。</view>
+			<view class="m-tip-ct">抗战岁月，一个日本九州大学毕业的农学士中国黑茶理论之父/白沙溪创始人---彭先泽。回到祖国，以实业报国的现实行为，向湖南政府提议在安化建立砖茶厂，这就是白沙溪的前身。</view>
 		</view>
 		<view class="m-tip">
 			<view class="m-tip-tt">服务理念</view>
-			<view>抗战岁月，一个日本九州大学毕业的农学士中国黑茶理论之父/白沙溪创始人---彭先泽。回到祖国，以实业报国的现实行为，向湖南政府提议在安化建立砖茶厂，这就是白沙溪的前身。</view>
+			<view class="m-tip-ct">打造湖南高品质茶文化 让顾客放心买，安心喝。</view>
+		</view>
+		<view style="height: 120upx;"></view>
+		<view class="m-ft">
+			<view @tap="telPhone">电话咨询</view>
+			<view class="bg">一键导航</view>
 		</view>
 	</view>
 </template>
@@ -96,7 +101,12 @@
 
 		},
 		methods: {
-
+			telPhone() {
+				// 设定电话拨打号码
+				uni.makePhoneCall({
+					phoneNumber: ''
+				})
+			},
 		},
 	}
 </script>
@@ -107,6 +117,49 @@
 	}
 	.m {
 		color: @c3;
+		&-ft {
+			width: 710upx;
+			padding: 10upx 20upx;
+			@{bgc}: #fff;
+			border-top: 2upx solid #f6f6f6;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			display: flex;
+			@{jc}: space-between;
+			@{ai}: center;
+			view {
+				display: flex;
+				@{jc}: center;
+				@{ai}: center;
+				@{fs}: 24upx;
+				border: 2upx solid @baseColor;
+				color: @baseColor;
+				width: 340upx;
+				height: 70upx;
+				@{bdra}: 35upx;
+				&:active {
+					opacity: .7;
+				}
+			}
+			.bg {
+				@{bgc}: @baseColor;
+				color: #fff;
+			}
+		}
+		&-tip {
+			padding: 0 20upx;
+			&-tt {
+				@{fs}: 32upx;
+				padding: 12upx 0 18upx;
+			}
+			&-ct {
+				@{fs}: 24upx;
+				line-height: 42upx;
+				text-align: justify;
+				color: @c6;
+			}
+		}
 		&-env {
 			padding: 24upx 20upx;
 			@{fs}: 32upx;

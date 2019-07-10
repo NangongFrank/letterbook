@@ -8,7 +8,7 @@
 			<view class="m-theme">
 				<view class="label">主题:</view>
 				<view class="value">
-					<input v-model="theme" placeholder="嗨,我们交个朋友吧~"/>
+					<input v-model="theme" :placeholder="themePlaceholder"/>
 				</view>
 			</view>
 			<view class="m-ct">
@@ -17,7 +17,7 @@
 					<view class="action" @tap="showSheet">参考</view>
 				</view>
 				<view class="m-ct-ct">
-					<textarea v-model="content" placeholder="我发现你的兴趣跟我蛮相似的，介不介意以后一块儿出来玩啊？" />
+					<textarea v-model="content" :placeholder="contentPlaceholder" />
 				</view>
 			</view>
 		</view>
@@ -34,23 +34,29 @@
 		</view>
 		<view style="height: 100upx;background-color: #fff;"></view>
 		<view class="ft">
-			<view class="btn" v-if="isSend">发送</view>
+			<view class="btn" v-if="isSend" @tap="sendMailEvent">发送</view>
 			<view v-else>发送</view>
 		</view>
 	</view>
 </template>
 <script>
+	import {sendMail} from '@/extends/hosts'
 	export default {
 		data() {
 			return {
+				userId: '',
+				myId: '',
 				theme: '',
 				content: '',
 				imgList: [],
 				isSend: true,
+				themePlaceholder: '嗨,我们交个朋友吧~',
+				contentPlaceholder: '我发现你的兴趣跟我蛮相似的，介不介意以后一块儿出来玩啊？',
 			}
 		},
-		onLoad(opitons) {
-
+		onLoad({userId, myId}) {
+			this.userId = userId
+			this.myId = myId
 		},
 		methods: {
 			showSheet() {
@@ -90,6 +96,36 @@
 			removeImg(index) {
 				this.imgList.splice(index, 1)
 			},
+			sendMailEvent() {
+				let vm = this,
+					content = vm.content ? vm.content : vm.contentPlaceholder,
+					title = vm.theme ? vm.theme : vm.themePlaceholder
+					receiverId = vm.userId,
+					files = vm.imgList,
+					senderId = vm.myId
+				uni.showLoading({
+					title: '发送中...'
+				})
+				uni.request({
+					url: sendMail,
+					method: 'post',
+					header: {
+						"Content-type": 'application/x-www-form-urlencoded',
+					},
+					data: {
+						receiverId,
+						senderId,
+						title,
+						content,
+						files,
+					}
+				}).then(([err, {data}]) => {
+					vm.imgList = []
+					vm.content = ''
+					vm.theme = ''
+					uni.hideLoading()
+				})
+			}
 		},
 		computed: {
 			imgCount() {

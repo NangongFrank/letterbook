@@ -1,41 +1,56 @@
 <template>
 	<view class="m">
 		<view class="wrapper"
-		v-for="(value, index) in list"
+		@tap="jumpTopicInfo(value)"
+		v-for="(value, index) in dataList"
 		:key="index">
 			<view class="m-tt">
 				<view class="m-tt-t">
 					<view>话题</view>
 				</view>
-				<view class="m-tt-c" v-text="value.tt"></view>
+				<view class="m-tt-c" v-text="value.title"></view>
 			</view>
-			<view class="m-ct">
+			<!-- <view class="m-ct">
 				<view v-for="(val, ind) in value.imgs"
 				:key="ind">
 					<image class="long-img" :src="val.url" v-if="val.long" mode="widthFix"></image>
 					<image class="simple-img" :src="val.url" v-else mode="aspectFill"></image>
 				</view>
+			</view> -->
+			<view class="m-ct">
+				<view>
+					<image class="simple-img" :src="value.img" mode="aspectFill"></image>
+				</view>
 			</view>
 			<view class="m-ft">
-				<view class="m-ft-time" v-text="value.time">2019-06-25</view>
+				<view class="m-ft-time" v-text="$date('YmdHis',value.createTime)">2019-06-25</view>
 				<view class="m-ft-info">
-					<view v-text="value.good + '点赞'"></view>
-					<view v-text="value.tip + '评论'"></view>
+					<view v-text="value.baseLikeCount + '点赞'"></view>
+					<view v-text="value.baseConsultantCount + '评论'"></view>
 				</view>
 				<view class="m-ft-author">
 					来自
-					<view class="name">茶大师</view>
+					<view class="name" v-text="value.sysUserName">茶大师</view>
 				</view>
 			</view>
+		</view>
+		<view class="add-more" v-if="isMore" @tap="loadMore">
+			<view>加载更多</view>
 		</view>
 	</view>
 </template>
 <script>
+	import {getUserTopicList, imgHost} from '@/extends/hosts'
 	export default {
 		name: 'Topic',
 		data() {
 			return {
-				list: [{
+				userId: '',
+				pageNo: 1,
+				pageSize: 5,
+				topicList: [],
+				isMore: false,
+				dataList: [/* {
 					tt: '为什么茶店永远没人??',
 					imgs: [{
 						url: "/static/assests/home/topic/long-img.jpg",
@@ -86,15 +101,60 @@
 					good: 25,
 					tip: 58,
 					author: '茶大师',
-				}]
+				} */],
 			}
 		},
-		onLoad(opitons) {
-
-		},
 		methods: {
-
-		}
+			getTopicList() {
+				let vm = this,
+					userId = vm.userId,
+					pageNo = vm.pageNo,
+					pageSize = vm.pageSize
+				uni.request({
+					url: getUserTopicList,
+					method: 'POST',
+					header: {
+						"Content-type": 'application/x-www-form-urlencoded',
+					},
+					data: {
+						userId,
+						pageNo,
+						pageSize,
+					},
+				}).then(([err, {data}]) => {
+					if(data.result == 0) {
+						data = data.data
+						if(data.total > pageNo * pageSize) {
+							this.isMore = true
+						} else {
+							this.isMore = false
+						}
+						let r = data.list.map(value => {
+							value.img = imgHost + value.img
+							return value
+						})
+						this.dataList = this.dataList.concat(r)
+					}
+				})
+			},
+			loadMore() {
+				this.pageNo ++
+				this.getTopicList()
+			},
+			jumpTopicInfo({themeId, id}) {
+				uni.navigateTo({
+					url: '/pages/children/home/children/topic?themeId=' + themeId
+				})
+			},
+		},
+		created() {
+			uni.getStorage({
+				key: 'userId'
+			}).then(([err, {data}]) => {
+				this.userId = data
+				this.getTopicList()
+			})
+		},
 	}
 </script>
 <style lang="less" scoped>

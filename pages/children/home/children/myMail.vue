@@ -11,6 +11,7 @@
 		@scrolltolower="nowEnd"
 		:style="{height: viewHeight}">
 			<view class="m-ct-li"
+			@tap="jumpToMailInfo(value)"
 			v-for="(value, index) in 10"
 			:key="index">
 				<view class="m-ct-li-user">
@@ -39,6 +40,7 @@
 				current: 0,
 				viewHeight: '558px',
 				isAll: false,
+				myId: 0,
 			}
 		},
 		onLoad(opitons) {
@@ -57,6 +59,11 @@
 			},
 			nowEnd() {
 				this.isAll = true
+			},
+			jumpToMailInfo(value) {
+				uni.navigateTo({
+					url: '/pages/children/home/children/children/mailInfo?state=' + this.current + '&userInfo' + value + '&myId=' + this.myId
+				})
 			},
 		},
 		watch: {

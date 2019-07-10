@@ -13,7 +13,7 @@
 						<view>我心飞翔</view>
 					</view>
 					<view class="time">2019-06-15</view>
-					<view class="action">回复TA</view>
+					<view v-if="isMe" class="action" @tap="backMailEvent">回复TA</view>
 				</view>
 			</view>
 		</view>
@@ -24,15 +24,25 @@
 		data() {
 			return {
 				pageMinHeight: '603px',
+				userId: 0,
+				myId: 0,
+				isMe: 1,
 			}
 		},
-		onLoad(opitons) {
+		onLoad({state, myId, userId}) {
+			this.isMe = state
+			this.userId = userId
+			this.myId = myId
 			uni.getSystemInfo().then(([err, {windowHeight}]) => {
 				this.pageMinHeight = windowHeight - 140 + 'px'
 			})
 		},
 		methods: {
-			
+			backMailEvent() {
+				uni.navigateTo({
+					url: '/pages/children/home/children/writeMail?userId=' + this.userId + '&myId=' + this.myId
+				})
+			},
 		},
 	}
 </script>

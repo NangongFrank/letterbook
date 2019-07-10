@@ -1,15 +1,30 @@
 {
 	"pages": [
-		/* {
-			"path": "pages/index/index",
+		{
+			"path": "pages/index/startPage",
 			"style": {
-				"navigationBarTitleText": "信书名片"
+				"navigationBarTitleText": "信书社交"
 			}
-		}, */
+		},{
+			"path": "pages/index/registerAndLogin",
+			"style": {
+				"navigationBarTitleText": "登录信书"
+			}
+		},
 		{
 			"path":"pages/children/home/index",
 			"style": {
 				"navigationBarTitleText":"个人主页"
+			}
+		},{
+			"path":"pages/children/home/children/writeChpter",
+			"style": {
+				"navigationBarTitleText":"发布文章"
+			}
+		},{
+			"path":"pages/children/home/children/writeVideo",
+			"style": {
+				"navigationBarTitleText":"发布视频"
 			}
 		},{
 			"path":"pages/children/home/children/topic",
@@ -68,10 +83,12 @@
 		"current": 0,
 		"list": [{
 			"path":"pages/children/home/index",
-			"name":"个人主页"
+			"name":"个人主页",
+			"query":"userId=1"
 		}, {
 			"path":"pages/children/home/children/topic",
-			"name":"话题"
+			"name":"话题",
+			"query":"themeId=8"
 		}, {
 			"path":"pages/children/home/children/video",
 			"name":"视频"
@@ -89,13 +106,27 @@
 			"name":"门店"
 		}, {
 			"path":"pages/children/home/children/writeMail",
-			"name":"写信"
+			"name":"写信",
+			"query":"userId=21072&myId=20340"
 		}, {
 			"path":"pages/children/home/children/myMail",
-			"name":"我的信书"
+			"name":"我的信书",
+			"query":"userId=21072"
 		}, {
 			"path":"pages/children/home/children/children/mailInfo",
 			"name":"信件详情"
+		}, {
+			"path":"pages/children/home/children/writeChpter",
+			"name":"发布文章"
+		}, {
+			"path":"pages/children/home/children/writeVideo",
+			"name":"发布视频"
+		}, {
+			"path":"pages/index/startPage",
+			"name":"启动页"
+		}, {
+			"path":"pages/index/registerAndLogin",
+			"name":"登录注册"
 		}]
 	}
 }
