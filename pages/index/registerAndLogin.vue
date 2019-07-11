@@ -6,7 +6,8 @@
 			<button open-type="getPhoneNumber" @getphonenumber="phoneEvent">立即授权</button>
 		</view> -->
 		<view class="m-free">
-			<view class="free-hr"></view>
+			<!-- <view class="free-hr"></view> -->
+			<view style="height: 300upx;"></view>
 			<view class="m-free-tt">手动输入手机号</view>
 			<view class="m-free-nav">密码为手机号后六位</view>
 			<view class="m-free-phone">
@@ -17,7 +18,7 @@
 				<view class="value">
 					<input type="number" v-model="phone" placeholder="手机号码"/>
 					<view>
-						<view class="btn send" @tap="sendShortMsg" v-if="numStatus && cacheStatus">发送验证码</view>
+						<view class="btn send" @tap="sendShortMsg" v-if="cacheStatus && numStatus">发送验证码</view>
 						<view class="btn" v-else>发送验证码</view>
 					</view>
 				</view>
@@ -27,9 +28,10 @@
 				<view class="value">
 					<input type="number" v-model="checkNum" placeholder="输入验证码"/>
 				</view>
+				<view class="to-time" v-if="reduceTime" v-text="reduceTime"></view>
 			</view>
-			<view class="my-btn done" @tap="login" v-if="status">立即授权</view>
-			<view class="my-btn" v-else>立即授权</view>
+			<view class="my-btn done" @tap="login" v-if="status">立即登录</view>
+			<view class="my-btn" v-else>立即登录</view>
 			
 		</view>
 	</view>
@@ -43,14 +45,15 @@
 				phone: '',
 				checkNum: '',
 				cacheStatus: true,
-				pageHeight: '603px',								
+				pageHeight: '603px',
+				reduceTime: 0,
 			}
 		},
 		onLoad({openid}) {
 			uni.getSystemInfo().then(([err, {windowHeight}]) => {
 				this.pageHeight = windowHeight + 'px'
 			})
-			uni.login({provider: 'weixin'})
+			// uni.login({provider: 'weixin'})
 		},
 		methods: {
 			getOpenId() {
@@ -89,7 +92,20 @@
 				})
 			},
 			sendShortMsg() {
-				this.cacheStatus = false
+				let vm = this
+				vm.cacheStatus = false
+				vm.reduceTime = 60
+				let timer = setInterval(e => {
+					vm.reduceTime --
+					if(!vm.reduceTime) {
+						vm.cacheStatus = true
+						clearInterval(timer)
+						return
+					}
+				}, 1000)
+				setTimeout(e => {
+					vm.cacheStatus = true
+				}, 60000)
 			},
 			showList() {
 				uni.showActionSheet({
@@ -126,7 +142,6 @@
 			numStatus() {
 				let vm = this
 				if(/^1\d{10}/.test(vm.phone)) {
-					// vm.cacheStatus = false
 					return true
 				} else {
 					return false
@@ -137,6 +152,19 @@
 </script>
 <style lang="less" scoped>
 	@import "../../static/config.less";
+	.to-time {
+		position: absolute;
+		right: 10upx;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 60upx;
+		height: 30upx;
+		@{fs}: 24upx;
+		color: @c6;
+		display: flex;
+		@{ai}: center;
+		@{jc}: center;
+	}
 	.m {
 		display: flex;
 		@{fd}: column;
@@ -148,6 +176,7 @@
 			&-check {
 				display: flex;
 				padding: 12upx 0;
+				position: relative;
 			}
 			.value,
 			.label {

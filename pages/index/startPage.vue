@@ -3,7 +3,7 @@
 		<image src="/static/assests/start-page-bg.jpg" mode="widthFix"></image>
 		<view class="m-box" :style="{height: footHeight}">
 			<view class="btn">
-				<button open-type="getUserInfo" @getuserinfo="userInfoEvent">微信授权登录</button>
+				<button open-type="getUserInfo" @getuserinfo="userInfoEvent">微信授权</button>
 				<view class="m-box-tip">您使用的信息不会向微信好友展示</view>
 			</view>
 			<view class="m-box-ft">
